@@ -1,0 +1,400 @@
+FORMAT: 1A
+HOST: http://publicdebatepwa2015.apiblueprint.org/
+
+# Simple public debate API
+
+The Public Debate is a simple API of threads (topics), posts and users.
+
+## Threads [/threads/{?offset,limit,sort}]
+ 
++ Parameters  
+    + offset (optional, Number, `0`)
+    + limit (optional, Number, `2`)
+    + sort (optional, String, `-title,+created`)
+
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Total-Count: 10
+        
+    + Body
+    
+            {
+                "offset": 0,
+                "limit": 2,
+                "threads": [
+                    {
+                        "id": 1,
+                        "url": "/threads/1",
+                        "title": "Mock thread 1",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "id": 1,
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "url": "/threads/2",
+                        "title": "Mock thread 2",
+                        "created": "2015-12-09T08:40:51.620Z",
+                        "author": {
+                            "id": 2,
+                            "first_name": "Jeremy",
+                            "last_name": "Jackson",
+                            "username": "jeremy.jackson"
+                        }
+                    }
+                ]
+            }
+
+### Create [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-Access-Token: ASD23423adsfdsf4543G
+    
+    + Body
+    
+            {
+                "title": "This is a new mock thread",
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /threads/3
+    
+    + Body
+        
+            {
+                "id": 3,
+                "url": "/threads/3",
+                "title": "This is a new mock thread"
+                "created": "2015-08-05T08:40:51.620Z",
+                "author": {
+                    "id": 2,
+                    "first_name": "Jeremy",
+                    "last_name": "Jackson",
+                    "username": "jeremy.jackson"
+                }
+            }
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to create thread.",
+                }
+            ]
+        }
+
+
+## Specific Thread [/threads/{thread_id}]
+
++ Parameters
+    + thread_id (required, Number)
+
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "url": "/threads/1",
+            "title": "Mock thread 1",
+            "created": "2015-08-05T08:40:51.620Z",
+            "author": {
+                "id": 1,
+                "first_name": "John",
+                "last_name": "Smith",
+                "username": "john.smith"
+            }
+        }
+
+### Modify [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-Access-Token: MUf55TwFXYgJ9xcc3f8dpG
+    
+    + Body
+    
+            {
+                "id": 1,
+                "title": "This is a modified mock thread",
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            Location: /threads
+
+
++ Response 401 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to modify thread.",
+                }
+            ]
+        }
+
+### Remove [DELETE]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-Access-Token: MUf55TwFXYgJ9xcc3f8dpG
+
++ Response 204 
+
+    + Headers
+        
+            Location: /threads
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to remove thread.",
+                }
+            ] 
+        }
+
+
+## Posts [/threads/{thread_id}/posts{?offset,limit,sort}]
+ 
++ Parameters
+    + thread_id (required, Number, `1`)
+    + offset (optional, Number, `0`) 
+    + limit (optional, Number, `2`)
+    + sort (optional, String, `-created,+author.last_name`)
+
+### List [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            X-Total-Count: 10
+        
+    + Body
+    
+            {
+                "offset": 0,
+                "limit": 2,
+                "posts": [
+                    {
+                        "id": 1,
+                        "text": "Mock post!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "text": "Mock post 2!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
+                    }
+                ]
+            }
+        
+### Create [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-Access-Token: MUf55TwFXYgJ9xcc3f8dpG
+    
+    + Body
+    
+            {
+                "text": "This is a new mock post"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "id": 3,
+            "text": "This is a new mock post",
+            "created": "2015-08-05T08:40:51.620Z",
+            "author": {
+                "first_name": "John",
+                "last_name": "Smith",
+                "username": "john.smith"
+            }
+        }
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to create post.",
+                }
+            ] 
+        }
+
+## Specific Post [/threads/{thread_id}/posts/{post_id}]
+
++ Parameters
+    + thread_id (required, Number)
+    + post_id (required, Number)
+
+### Modify [POST]
+
++ Request (application/json)
+
+    + Headers
+        
+            X-Access-Token: MUf55TwFXYgJ9xcc3f8dpG
+    
+    + Body
+        
+            {
+                "id": 1,
+                "text": "This is a modified mock post"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            Location: /threads/1/posts
+    
+    + Body
+    
+            [
+                {
+                    "id": 1,
+                    "text": "This is a modified mock post",
+                    "created": "2015-08-05T08:40:51.620Z",
+                },
+                {
+                    "id": 2,
+                    "text": "Mock post 2!",
+                    "created": "2015-08-05T08:40:51.620Z",
+                },
+                {
+                    "id": 3,
+                    "text": "This is a new mock post"
+                    "created": "2015-08-05T08:40:51.620Z",
+                }
+            ]
+            
++ Response 401 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to modify post unless you're it's author.",
+                }
+            ]  
+        }
+
+### Remove [DELETE]
+
++ Request (application/json)
+
+    + Headers
+        
+            X-Access-Token: MUf55TwFXYgJ9xcc3f8dpG
+
++ Response 204
+
+    + Headers
+        
+            Location: /threads/1
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "user_post": "You're not allowed to remove post unless you're it's author.",
+                }
+            ]  
+        }
+
+
+## Users [/users]
+        
+### Create [PUT]
+
++ Request (application/json)
+
+        {
+            "first_name": "John",
+            "last_name": "Smith",
+            "username": "john.smith",
+            "password": "e6f55123d64024086dcc3f508c96bd29"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+        
+            Location: /users/login
+        
+    + Body
+        
+            {
+                "id": 1,
+                "first_name": "John",
+                "last_name": "Smith",
+                "username": "john.smith"
+            }
+
+## User's Login [/users/login]
+
+### Login [POST]
+
++ Request (application/json)
+
+        {
+            "username": "john.smith",
+            "password": "e6f55123d64024086dcc3f508c96bd29"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Smith",
+            "username": "john.smith",
+            "token": "MUf55TwFXYgJ9xcc3f8dpG",
+        }
+
