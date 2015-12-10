@@ -16,6 +16,10 @@ describe('threadsController', function() {
         });
     }));
 
+    afterEach(inject(function(_$controller_, $injector) {
+        $httpBackend = $injector.get('$httpBackend');
+        $httpBackend.verifyNoOutstandingExpectation();
+    }));
 
     it('Create new Thread', function() {
         $httpBackend.expectGET(server + '/threads').respond(200, {
