@@ -1,0 +1,10 @@
+<form ng-submit="create()">
+    <label for="threadTitle">New thread</label>
+    <input type="text" id="threadTitle" class="form-control" ng-model="title" placeholder="Type in new thread title and press enter" />
+</form>
+<ul class="threads" ng-ready="update()">
+    <li ng-repeat="thread in threadsObject.threads">
+        {{thread.title}}
+        <span class="pull-right">{{thread.author.username}}</span>
+    </li>
+</ul>
