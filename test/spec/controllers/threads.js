@@ -10,7 +10,36 @@ describe('threadsController', function() {
     beforeEach(inject(function(_$controller_, $injector) {
         $controller = _$controller_;
         $httpBackend = $injector.get('$httpBackend');
-        $scope = {};
+        $scope = {
+            threadsObject: {
+                offset: 0,
+                limit: 2,
+                threads: [{
+                    id: 1,
+                    url: "/threads/1",
+                    title: "Mock thread 1",
+                    created: "2015-08-05T08:40:51.620Z",
+                    author: {
+                        id: 1,
+                        first_name: "John",
+                        last_name: "Smith",
+                        username: "john.smith"
+                    }
+                }, {
+                    id: 2,
+                    url: "/threads/2",
+                    title: "Mock thread 2",
+                    created: "2015-12-09T08:40:51.620Z",
+                    author: {
+                        id: 2,
+                        first_name: "Jeremy",
+                        last_name: "Jackson",
+                        username: "jeremy.jackson"
+                    }
+                }]
+            }
+        };
+
         $controller('threadsController', {
             $scope: $scope
         });
@@ -22,34 +51,6 @@ describe('threadsController', function() {
     }));
 
     it('Create new Thread', function() {
-        $httpBackend.expectGET(server + '/threads').respond(200, {
-            offset: 0,
-            limit: 2,
-            threads: [{
-                id: 1,
-                url: "/threads/1",
-                title: "Mock thread 1",
-                created: "2015-08-05T08:40:51.620Z",
-                author: {
-                    id: 1,
-                    first_name: "John",
-                    last_name: "Smith",
-                    username: "john.smith"
-                }
-            }, {
-                id: 2,
-                url: "/threads/2",
-                title: "Mock thread 2",
-                created: "2015-12-09T08:40:51.620Z",
-                author: {
-                    id: 2,
-                    first_name: "Jeremy",
-                    last_name: "Jackson",
-                    username: "jeremy.jackson"
-                }
-            }]
-        });
-
         $scope.title = "New Title";
         $httpBackend.expectPOST(server + '/threads')
             .respond({

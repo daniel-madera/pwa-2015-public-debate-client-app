@@ -11,7 +11,7 @@
 var app = angular.module('publicDebate');
 app.controller('threadsController', function($scope, Threads) {
 
-    $scope.update = function() {
+    $scope.get = function() {
         var params = {
             // offset: 0,
             // limit: 20,
@@ -30,6 +30,10 @@ app.controller('threadsController', function($scope, Threads) {
     }
 
     $scope.create = function() {
+        if ($scope.title == '') {
+            return false;
+        }
+
         var postData = {
             title: $scope.title
         };
@@ -46,5 +50,7 @@ app.controller('threadsController', function($scope, Threads) {
         Threads.save({}, postData, success, error);
     };
 
-    $scope.update();
+    angular.element(document).ready(function() {
+        $scope.get();
+    });
 });
