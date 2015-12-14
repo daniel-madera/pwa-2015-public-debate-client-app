@@ -23,34 +23,36 @@ Public Debate is a simple API of threads (topics), posts and users.
     
     + Body
     
-            [
-                {
-                    "id": 1,
-                    "url": "/threads/1",
-                    "url_posts": "/threads/1/posts",
-                    "title": "Mock thread 1",
-                    "created": "2015-08-05T08:40:51.620Z",
-                    "author": {
+            {
+                threads: [
+                    {
                         "id": 1,
-                        "first_name": "John",
-                        "last_name": "Smith",
-                        "username": "john.smith"
-                    }
-                },
-                {
-                    "id": 2,
-                    "url": "/threads/2",
-                    "url_posts": "/threads/2/posts",
-                    "title": "Mock thread 2",
-                    "created": "2015-12-09T08:40:51.620Z",
-                    "author": {
+                        "url": "/threads/1",
+                        "url_posts": "/threads/1/posts",
+                        "title": "Mock thread 1",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "id": 1,
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
                         "id": 2,
-                        "first_name": "Jeremy",
-                        "last_name": "Jackson",
-                        "username": "jeremy.jackson"
+                        "url": "/threads/2",
+                        "url_posts": "/threads/2/posts",
+                        "title": "Mock thread 2",
+                        "created": "2015-12-09T08:40:51.620Z",
+                        "author": {
+                            "id": 2,
+                            "first_name": "Jeremy",
+                            "last_name": "Jackson",
+                            "username": "jeremy.jackson"
+                        }
                     }
-                }
-            ]
+                ]
+            }
     
 
 + Response 206 (application/json)
@@ -65,21 +67,23 @@ Public Debate is a simple API of threads (topics), posts and users.
     
     + Body
     
-            [
-                {
-                    "id": 1,
-                    "url": "/threads/1",
-                    "url_posts": "/threads/1/posts",
-                    "title": "Mock thread 1",
-                    "created": "2015-08-05T08:40:51.620Z",
-                    "author": {
+            {
+                threads: [
+                    {
                         "id": 1,
-                        "first_name": "John",
-                        "last_name": "Smith",
-                        "username": "john.smith"
+                        "url": "/threads/1",
+                        "url_posts": "/threads/1/posts",
+                        "title": "Mock thread 1",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "id": 1,
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
                     }
-                }
-            ]
+                ]
+            }
 
 + Response 400
 
@@ -259,28 +263,30 @@ Public Debate is a simple API of threads (topics), posts and users.
     
     + Body
     
-            {[
-                {
-                    "id": 1,
-                    "text": "Mock post!",
-                    "created": "2015-08-05T08:40:51.620Z",
-                    "author": {
-                        "first_name": "John",
-                        "last_name": "Smith",
-                        "username": "john.smith"
+            {
+                posts: [
+                    {
+                        "id": 1,
+                        "text": "Mock post!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "text": "Mock post 2!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
                     }
-                },
-                {
-                    "id": 2,
-                    "text": "Mock post 2!",
-                    "created": "2015-08-05T08:40:51.620Z",
-                    "author": {
-                        "first_name": "John",
-                        "last_name": "Smith",
-                        "username": "john.smith"
-                    }
-                }
-            ]}
+                ]
+            }
     
 
 + Response 206 (application/json)
@@ -295,18 +301,20 @@ Public Debate is a simple API of threads (topics), posts and users.
     
     + Body
     
-            {[
-               {
-                    "id": 1,
-                    "text": "Mock post!",
-                    "created": "2015-08-05T08:40:51.620Z",
-                    "author": {
-                        "first_name": "John",
-                        "last_name": "Smith",
-                        "username": "john.smith"
+            {
+                posts: [
+                   {
+                        "id": 1,
+                        "text": "Mock post!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "first_name": "John",
+                            "last_name": "Smith",
+                            "username": "john.smith"
+                        }
                     }
-                }
-            ]}
+                ]
+            }
 
 + Response 400
 
