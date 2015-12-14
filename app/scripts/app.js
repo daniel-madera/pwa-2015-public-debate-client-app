@@ -19,20 +19,15 @@ app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'views/threads.html',
-            controller: 'threadsController',
+            controller: 'ThreadsController',
         })
         .when('/threads', {
             templateUrl: 'views/threads.html',
-            controller: 'threadsController',
+            controller: 'ThreadsController',
         })
         .when('/threads/:thread_id/posts', {
             templateUrl: 'views/posts.html',
-            controller: 'postsController',
-        })
-        .when('/about', {
-            templateUrl: 'views/about.html',
-            controller: 'aboutController',
-            controllerAs: 'about'
+            controller: 'PostsController',
         })
         .otherwise({
             redirectTo: '/'

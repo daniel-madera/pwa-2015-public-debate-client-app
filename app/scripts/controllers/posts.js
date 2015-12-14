@@ -10,7 +10,7 @@
 
 var app = angular.module('publicDebate');
 
-app.controller('postsController', function($scope, $routeParams, PostsResource, PaginationService) {
+app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService) {
     $scope.thread_id = $routeParams.thread_id;
 
     $scope.get = function() {

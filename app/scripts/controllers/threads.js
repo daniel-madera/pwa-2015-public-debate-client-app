@@ -9,7 +9,7 @@
  */
 
 var app = angular.module('publicDebate');
-app.controller('threadsController', function($scope, ThreadsResource) {
+app.controller('ThreadsController', function($scope, ThreadsResource) {
 
     $scope.get = function() {
         var params = {};
