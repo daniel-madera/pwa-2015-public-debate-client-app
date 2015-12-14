@@ -15,7 +15,7 @@ app.controller('threadsController', function($scope, Threads) {
         var params = {};
 
         var success = function(value, responseHeaders) {
-            $scope.threadsObject = value;
+            $scope.threads = value;
         }
 
         var error = function(httpResponse) {

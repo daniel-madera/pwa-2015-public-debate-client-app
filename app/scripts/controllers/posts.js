@@ -19,9 +19,9 @@ app.controller('postsController', function($scope, $routeParams, Posts) {
         }
 
         var success = function(value, responseHeaders) {
-            $scope.postsObject = value;
-            $scope.postsObject.count = responseHeaders('total-count');
-            console.log($scope.postsObject.count);
+            $scope.posts = value;
+            var links = count = responseHeaders('Link');
+            console.log(links);
         }
 
         var error = function(httpResponse) {
