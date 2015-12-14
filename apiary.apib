@@ -17,14 +17,15 @@ Public Debate is a simple API of threads (topics), posts and users.
 + Response 200 (application/json)
 
     + Headers
-    
+            
+            Access-Control-Expose-Headers: Content-Range, Accept-Range
             Content-Range: 0-2/2
             Accept-Range: threads 50
     
     + Body
     
             {
-                threads: [
+                "threads": [
                     {
                         "id": 1,
                         "url": "/threads/1",
@@ -59,18 +60,15 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
+            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
             Content-Range: 0-1/2
             Accept-Range: threads 50
+            Link: <http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="last"
     
     + Body
     
             {   
-
-                first: "http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1",
-                prev: null,
-                next: "http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1",
-                last: "http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1",
-                threads: [
+                "threads": [
                     {
                         "id": 1,
                         "url": "/threads/1",
@@ -193,7 +191,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
             
-            Location: /threads/1
+            
     
     + Body
     
@@ -228,7 +226,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 + Request (application/json)
 
     + Headers
-    
+            
             X-Access-Token: {token}
 
 + Response 200
@@ -260,13 +258,14 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
+            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
             Content-Range: 0-2/2
             Accept-Range: posts 50
     
     + Body
     
             {
-                posts: [
+                "posts": [
                     {
                         "id": 1,
                         "text": "Mock post!",
@@ -295,17 +294,15 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
+            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
             Content-Range: 0-1/2
             Accept-Range: posts 50
+            Link: <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="last"
     
     + Body
     
             {  
-                first: "http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1",
-                prev: null,
-                next: "http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1",
-                last: "http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1",
-                posts: [
+                "posts": [
                    {
                         "id": 1,
                         "text": "Mock post!",
@@ -323,6 +320,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
+            Access-Control-Expose-Headers: Content-Range, Accept-Range
             Accept-Range: posts 50
     
     + Body
@@ -414,7 +412,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 + Request (application/json)
 
     + Headers
-        
+    
             X-Access-Token: {token}
 
 + Response 200
@@ -448,7 +446,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 + Response 201 (application/json)
 
     + Headers
-        
+            
             Location: /users/1
         
     + Body
