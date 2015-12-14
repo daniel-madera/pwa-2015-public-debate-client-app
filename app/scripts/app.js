@@ -15,16 +15,6 @@ var app = angular.module('publicDebate', [
     'ngRoute'
 ]);
 
-var server = "http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate";
-
-app.factory('Threads', ['$resource', function($resource) {
-    return $resource(server + '/threads', {});
-}]);
-
-app.factory('Posts', ['$resource', function($resource) {
-    return $resource(server + '/threads/:thread_id/posts', {});
-}]);
-
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
