@@ -28,19 +28,16 @@ app.factory('Posts', ['$resource', function($resource) {
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'views/threads-list.html',
+            templateUrl: 'views/threads.html',
             controller: 'threadsController',
-            controllerAs: 'threads'
         })
         .when('/threads', {
-            templateUrl: 'views/threads-list.html',
+            templateUrl: 'views/threads.html',
             controller: 'threadsController',
-            controllerAs: 'threads'
         })
         .when('/threads/:thread_id/posts', {
             templateUrl: 'views/posts.html',
             controller: 'postsController',
-            controllerAs: 'posts'
         })
         .when('/about', {
             templateUrl: 'views/about.html',
