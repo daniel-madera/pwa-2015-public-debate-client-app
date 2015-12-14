@@ -12,6 +12,10 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
 
         var success = function(value, responseHeaders) {
             $scope.postsObject = value;
+            angular.extend($scope.postsObject, {
+                pagination: PaginationService.getPagination(responseHeaders)
+            });
+            console.log($scope.postsObject);
         }
 
         var error = function(httpResponse) {
