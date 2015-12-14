@@ -67,7 +67,7 @@ module.exports = function(grunt) {
                 ]
             },
             includeSource: {
-                files: ['<%= yeoman.app %>/index.html'],
+                files: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/scripts/**/*.js'],
                 tasks: ['includeSource:server']
             }
         },
@@ -450,7 +450,15 @@ module.exports = function(grunt) {
                     '<%= yeoman.dist %>/index.html': '<%= yeoman.app %>/index.html'
                 }
             }
-        }
+        },
+
+        useminPrepare: {
+            // changed from app to dist, to take index.html processed by includeSource in dist
+            html: '<%= yeoman.dist %>/index.html',
+            options: {
+                dest: '<%= yeoman.dist %>'
+            }
+        },
 
     });
 
