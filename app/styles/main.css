@@ -45,3 +45,7 @@ footer {
         margin-bottom: 30px;
     }
 }
+
+.form-horizontal button[type="submit"] {
+    margin-top: 10px;
+}
