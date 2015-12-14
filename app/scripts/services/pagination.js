@@ -33,12 +33,11 @@ app.service('PaginationService', function() {
      *   <offset>-<limit>/<count>.
      */
     this.parseContentRange = function(header) {
-        var values = header.match(/\s*([0-9]+)\s*-\s*([0-9]+)\/\s*([0-9]+)\s*/);
+        var values = header.match(/\s*([0-9]+)\s*:\s*([0-9]+)\/\s*([0-9]+)\s*/);
 
         if (!values || values.length !== 4) {
             return undefined;
         }
-
 
         return {
             offset: parseInt(values[1]),
@@ -80,6 +79,11 @@ app.service('PaginationService', function() {
                 links: links
             }
         );
+
+        if (paginationObject.offset != undefined && paginationObject.limit != undefined && paginationObject.count != undefined) {
+            paginationObject.page_number = Math.floor(paginationObject.offset / paginationObject.limit) + 1;
+            paginationObject.page_count = Math.ceil(paginationObject.count / paginationObject.limit);
+        }
 
         return paginationObject.length === 0 ? undefined : paginationObject;
     }
