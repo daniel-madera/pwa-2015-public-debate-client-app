@@ -12,11 +12,7 @@ var app = angular.module('publicDebate');
 app.controller('threadsController', function($scope, Threads) {
 
     $scope.get = function() {
-        var params = {
-            // offset: 0,
-            // limit: 20,
-            // sort: '-created,title'
-        };
+        var params = {};
 
         var success = function(value, responseHeaders) {
             $scope.threadsObject = value;
@@ -39,8 +35,8 @@ app.controller('threadsController', function($scope, Threads) {
         };
 
         var success = function(value, responseHeaders) {
-            $scope.threadsObject.threads.push(value);
             $scope.title = '';
+            $scope.get();
         }
 
         var error = function(httpResponse) {
