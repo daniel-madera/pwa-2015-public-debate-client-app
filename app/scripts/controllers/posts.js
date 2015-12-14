@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name publicDebate.controller:postsController
- * @description
- * # postController
- * Controller of the publicDebate
- */
-
 var app = angular.module('publicDebate');
 
 app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService) {

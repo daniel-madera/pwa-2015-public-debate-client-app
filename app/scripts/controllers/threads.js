@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name publicDebate.controller:threadsController
- * @description
- * # MainCtrl
- * Controller of the publicDebate
- */
-
 var app = angular.module('publicDebate');
 app.controller('ThreadsController', function($scope, ThreadsResource) {
 

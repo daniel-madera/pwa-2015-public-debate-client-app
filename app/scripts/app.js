@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name publicDebate
- * @description
- * # publicDebate
- *
- * Main module of the application.
- */
 var app = angular.module('publicDebate', [
     'ngAnimate',
     'ngCookies',
