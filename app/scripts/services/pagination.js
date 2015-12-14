@@ -7,16 +7,17 @@ app.service('PaginationService', function() {
      *   and value is link. Format of link header is defined
      *   by RFC5988.
      */
-    var parseLink = function(header) {
-        if (header.length === 0) {
+    this.parseLink = function(header) {
+        if (!header || header.length === 0) {
             return undefined;
         }
 
         var parts = header.split(',');
         var links = {};
+
         for (var i = 0; i < parts.length; i++) {
             var section = parts[i].split(';');
-            if (section.length !== 2) {
+            if (!section || section.length !== 2) {
                 return undefined;
             }
             var url = section[0].replace(/<(.*)>/, '$1').trim();
@@ -31,16 +32,18 @@ app.service('PaginationService', function() {
      *   Values are parsed from Content-Range header. Format is defined as
      *   <offset>-<limit>/<count>.
      */
-    var parseContentRange = function(header) {
+    this.parseContentRange = function(header) {
         var values = header.match(/\s*([0-9]+)\s*-\s*([0-9]+)\/\s*([0-9]+)\s*/);
-        if (values.length !== 3) {
+
+        if (!values || values.length !== 4) {
             return undefined;
         }
 
+
         return {
-            offset: values[0],
-            limit: values[1],
-            count: values[2]
+            offset: parseInt(values[1]),
+            limit: parseInt(values[2]),
+            count: parseInt(values[3])
         };
     }
 
@@ -48,34 +51,35 @@ app.service('PaginationService', function() {
      *   Returns array of max paginator values - unit, max_limit (maximum count of resources that
      *   can be fetched from server). Format is defined as <unit> <max_limit>
      */
-    var parseAcceptRange = function(header) {
+    this.parseAcceptRange = function(header) {
         var values = header.match(/\s*([a-zA-Z0-9]+)\s+([0-9]+)\s*/);
 
-        if (values.length !== 2) {
+        if (!values || values.length !== 3) {
             return undefined;
         }
 
         return {
-            unit: values[0],
-            max_limit: values[1]
+            unit: values[1],
+            max_limit: parseInt(values[2])
         };
     }
 
     /*
      *   Returns object with attributes - max_limit, offset, limit, links: {next, prev, fist, last}
      */
-    var getPagination = function(headers) {
+    this.getPagination = function(headers) {
         var paginationObject = {};
-        var link = headers('link');
-        var contentRange = headers('content-range');
-        var acceptRange = headers('accept-range');
+        var links = this.parseLink(headers('link'));
+        var contentRange = this.parseContentRange(headers('content-range'));
+        var acceptRange = this.parseAcceptRange(headers('accept-range'));
 
         angular.extend(
             paginationObject,
-            parseAcceptRange(acceptRange),
-            parseContentRange(contentRange), {
-                links: parseLink(link)
-            });
+            contentRange,
+            acceptRange, {
+                links: links
+            }
+        );
 
         return paginationObject.length === 0 ? undefined : paginationObject;
     }
