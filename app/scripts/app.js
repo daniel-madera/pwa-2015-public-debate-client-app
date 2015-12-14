@@ -21,6 +21,10 @@ app.factory('Threads', ['$resource', function($resource) {
     return $resource(server + '/threads', {});
 }]);
 
+app.factory('Posts', ['$resource', function($resource) {
+    return $resource(server + '/threads/:thread_id/posts', {});
+}]);
+
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
@@ -33,10 +37,10 @@ app.config(function($routeProvider) {
             controller: 'threadsController',
             controllerAs: 'threads'
         })
-        .when('/threads/:thread_id', {
-            templateUrl: 'views/thread-detail.html',
-            controller: 'threadController',
-            controllerAs: 'thread'
+        .when('/threads/:thread_id/posts', {
+            templateUrl: 'views/posts.html',
+            controller: 'postsController',
+            controllerAs: 'posts'
         })
         .when('/about', {
             templateUrl: 'views/about.html',
