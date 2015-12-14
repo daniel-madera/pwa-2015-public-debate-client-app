@@ -9,8 +9,8 @@
  */
 
 var app = angular.module('publicDebate');
-app.controller('postsController', function($scope, $routeParams, Posts) {
 
+app.controller('postsController', function($scope, $routeParams, PostsResource, PaginationService) {
     $scope.thread_id = $routeParams.thread_id;
 
     $scope.get = function() {
@@ -19,16 +19,14 @@ app.controller('postsController', function($scope, $routeParams, Posts) {
         }
 
         var success = function(value, responseHeaders) {
-            $scope.posts = value;
-            var links = count = responseHeaders('Link');
-            console.log(links);
+            $scope.postsObject = value;
         }
 
         var error = function(httpResponse) {
             console.log(httpResponse);
         }
 
-        Posts.get(params, success, error);
+        PostsResource.get(params, success, error);
     }
 
     $scope.create = function() {
@@ -49,7 +47,7 @@ app.controller('postsController', function($scope, $routeParams, Posts) {
             console.log(httpResponse);
         }
 
-        Posts.save({
+        PostsResource.save({
             thread_id: $scope.thread_id
         }, postData, success, error);
     };

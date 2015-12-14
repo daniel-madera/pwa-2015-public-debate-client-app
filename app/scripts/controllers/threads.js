@@ -9,20 +9,20 @@
  */
 
 var app = angular.module('publicDebate');
-app.controller('threadsController', function($scope, Threads) {
+app.controller('threadsController', function($scope, ThreadsResource) {
 
     $scope.get = function() {
         var params = {};
 
         var success = function(value, responseHeaders) {
-            $scope.threads = value;
+            $scope.threadsObject = value;
         }
 
         var error = function(httpResponse) {
             console.log(httpResponse);
         }
 
-        Threads.get(params, success, error);
+        ThreadsResource.get(params, success, error);
     }
 
     $scope.create = function() {
@@ -43,7 +43,7 @@ app.controller('threadsController', function($scope, Threads) {
             console.log(httpResponse);
         }
 
-        Threads.save({}, postData, success, error);
+        ThreadsResource.save({}, postData, success, error);
     };
 
     angular.element(document).ready(function() {
