@@ -1,13 +1,16 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function($scope, ThreadsResource) {
+app.controller('ThreadsController', function($scope, ThreadsResource, PaginationService) {
 
     $scope.get = function() {
         var params = {};
 
         var success = function(value, responseHeaders) {
             $scope.threadsObject = value;
+            angular.extend($scope.threadsObject, {
+                pagination: PaginationService.getPagination(responseHeaders)
+            });
         }
 
         var error = function(httpResponse) {

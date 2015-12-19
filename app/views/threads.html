@@ -1,10 +1,14 @@
 <form ng-submit="create()">
-    <label for="threadTitle">New thread</label>
-    <input type="text" id="threadTitle" class="form-control" ng-model="title" placeholder="Type in new thread title and press enter" />
+    <div class="form-group">
+        <label for="threadTitle">New thread</label>
+        <input type="text" id="threadTitle" class="form-control" ng-model="title" placeholder="Type in new thread title and press enter" />
+    </div>
 </form>
-<ul class="threads">
-    <li ng-repeat="thread in threadsObject.threads">
-        {{thread.title}}
-        <span class="pull-right">{{thread.author.username}}</span>
+<ul class="threads data-list list-unstyled">
+    <li ng-repeat="thread in threadsObject.threads" class="clearfix">
+        <div class="pull-left text"><a>{{thread.title}}</a></div>
+        <div class="pull-left author">{{thread.author.username}}</div>
     </li>
 </ul>
+<div ng-include="'views/templates/pagination.html'" ng-repeat="pagination in [threadsObject.pagination]">
+</div>
