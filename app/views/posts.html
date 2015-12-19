@@ -4,9 +4,11 @@
     <button type="submit" class="btn btn-primary pull-right">Submit</button>
 </form>
 <ul class="posts data-list list-unstyled">
-    <li ng-repeat="post in postsObject.posts" class="clearfix">
-        <div class="pull-left text"><a>{{post.text}}</a></div>
-        <div class="pull-left author">{{post.author.username}}</div>
+    <li ng-repeat="post in postsObject.posts">
+        <a class="block clearfix">
+            <span class="block pull-left text">{{post.text}}</span>
+            <span class="block pull-left author">{{post.author.username}}</span>
+        </a>
     </li>
 </ul>
 <div ng-include="'views/templates/pagination.html'" ng-repeat="pagination in [postsObject.pagination]">

@@ -1,8 +1,7 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function($scope, ThreadsResource, PaginationService) {
-
+app.controller('ThreadsController', function($scope, $location, ThreadsResource, PaginationService) {
     $scope.get = function() {
         var params = {};
 

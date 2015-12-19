@@ -5,9 +5,11 @@
     </div>
 </form>
 <ul class="threads data-list list-unstyled">
-    <li ng-repeat="thread in threadsObject.threads" class="clearfix">
-        <div class="pull-left text"><a>{{thread.title}}</a></div>
-        <div class="pull-left author">{{thread.author.username}}</div>
+    <li ng-repeat="thread in threadsObject.threads">
+        <a class="block clearfix" href="#{{thread.url_posts}}">
+            <span class="block pull-left text">{{thread.title}}</span>
+            <span class="block pull-left author">{{thread.author.username}}</span>
+        </a>
     </li>
 </ul>
 <div ng-include="'views/templates/pagination.html'" ng-repeat="pagination in [threadsObject.pagination]">
