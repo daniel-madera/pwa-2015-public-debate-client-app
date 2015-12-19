@@ -8,6 +8,7 @@ var app = angular.module('publicDebate', [
 ]);
 
 app.config(function($routeProvider) {
+
     $routeProvider
         .when('/', {
             templateUrl: 'views/threads.html',
@@ -34,6 +35,12 @@ app.config(function($routeProvider) {
         });
 });
 
-app.run(function($rootScope, $cookies) {
+app.run(function($rootScope, $cookies, $http) {
+
+    var user = $cookies.getObject('user');
+    $http.defaults.headers.post = {
+        'X-Access-Token': user.token
+    };
+
     $rootScope.user = $cookies.getObject('user');
 });
