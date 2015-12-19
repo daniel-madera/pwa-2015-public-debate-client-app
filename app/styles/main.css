@@ -84,3 +84,7 @@ a:hover {
 .block {
     display: block;
 }
+
+.login {
+    width: 50%;
+}

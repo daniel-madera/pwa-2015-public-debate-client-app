@@ -9,3 +9,15 @@ app.factory('ThreadsResource', ['$resource', function($resource) {
 app.factory('PostsResource', ['$resource', function($resource) {
     return $resource(server + '/threads/:thread_id/posts', {});
 }]);
+
+app.factory('UsersResource', ['$resource', function($resource) {
+    return $resource(server + '/users', {});
+}]);
+
+app.factory('UserLoginResource', ['$resource', function($resource) {
+    return $resource(server + '/users/login', {}, {
+        login: {
+            method: 'POST'
+        }
+    });
+}]);
