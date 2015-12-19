@@ -85,7 +85,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 ]
             }
 
-+ Response 400
++ Response 400 (application/json)
 
     + Headers
     
@@ -97,7 +97,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 "errors": [
                     {
                         "code": "limit_exceeded",
-                        "user_message": "Resources limit reached.",
+                        "user_message": "Resources limit reached."
                     }
                 ]    
             }
@@ -113,7 +113,7 @@ Public Debate is a simple API of threads (topics), posts and users.
     + Body
     
             {
-                "title": "This is a new mock thread",
+                "title": "This is a new mock thread"
             }
 
 + Response 201 (application/json)
@@ -144,7 +144,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to create thread.",
+                    "user_message": "You're not allowed to create thread."
                 }
             ]
         }
@@ -184,7 +184,7 @@ Public Debate is a simple API of threads (topics), posts and users.
     + Body
     
             {
-                "title": "This is a modified mock thread",
+                "title": "This is a modified mock thread"
             }
 
 + Response 200 (application/json)
@@ -216,7 +216,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to modify thread.",
+                    "user_message": "You're not allowed to modify thread."
                 }
             ]
         }
@@ -238,7 +238,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to remove thread.",
+                    "user_message": "You're not allowed to remove thread."
                 }
             ] 
         }
@@ -316,7 +316,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 ]
             }
 
-+ Response 400
++ Response 400 (application/json)
 
     + Headers
     
@@ -329,7 +329,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 "errors": [
                     {
                         "code": "limit_exceeded",
-                        "user_message": "Resources limit reached.",
+                        "user_message": "Resources limit reached."
                     }
                 ]    
             }
@@ -368,7 +368,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to create post.",
+                    "user_message": "You're not allowed to create post."
                 }
             ]
         }
@@ -402,7 +402,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to modify post unless you're it's author.",
+                    "user_message": "You're not allowed to modify post unless you're it's author."
                 }
             ]  
         }
@@ -415,7 +415,7 @@ Public Debate is a simple API of threads (topics), posts and users.
     
             X-Access-Token: {token}
 
-+ Response 200
++ Response 200 (application/json)
 
 
 + Response 401 (application/json)  
@@ -424,7 +424,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to remove post unless you're it's author.",
+                    "user_message": "You're not allowed to remove post unless you're it's author."
                 }
             ]  
         }
@@ -445,26 +445,20 @@ Public Debate is a simple API of threads (topics), posts and users.
 
 + Response 201 (application/json)
 
-    + Headers
-            
-            Location: /users/1
-        
-    + Body
-        
-            {
-                "id": 1,
-                "first_name": "John",
-                "last_name": "Smith",
-                "username": "john.smith"
-            }
+        {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Smith",
+            "username": "john.smith"
+        }
 
-+ Response 400
++ Response 400 (application/json)
 
         {  
             "errors": [
                 {
                     "code": "invalid_request",
-                    "user_message": "Invalid post data.",
+                    "user_message": "Invalid post data."
                 }
             ]  
         }
@@ -488,16 +482,16 @@ Public Debate is a simple API of threads (topics), posts and users.
             "first_name": "John",
             "last_name": "Smith",
             "username": "john.smith",
-            "token": "MUf55TwFXYgJ9xcc3f8dpG",
+            "token": "MUf55TwFXYgJ9xcc3f8dpG"
         }
 
-+ Response 401
++ Response 401 (application/json)
 
         {  
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "Username or password is invalid.",
+                    "user_message": "Username or password is invalid."
                 }
             ]  
         }
