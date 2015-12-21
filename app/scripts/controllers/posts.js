@@ -2,7 +2,7 @@
 
 var app = angular.module('publicDebate');
 
-app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService) {
+app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService, MessagesService) {
     $scope.thread_id = $routeParams.thread_id;
 
     $scope.get = function() {
@@ -18,10 +18,10 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
         }
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
+            MessagesService.addErrorMessages(httpResponse.data.errors);
         }
 
-        PostsResource.get(params, success, error);
+        return PostsResource.get(params, success, error);
     }
 
     $scope.create = function() {
@@ -36,13 +36,17 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
         var success = function(value, responseHeaders) {
             $scope.text = '';
             $scope.get();
+            MessagesService.add({
+                text: "Post was created successfully.",
+                level: 'success'
+            });
         }
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
+            MessagesService.addErrorMessages(httpResponse.data.errors);
         }
 
-        PostsResource.save({
+        return PostsResource.save({
             thread_id: $scope.thread_id
         }, postData, success, error);
     };

@@ -18,18 +18,17 @@ app.controller('ThreadsController', function($scope, ThreadsResource, Pagination
         }
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
+            MessagesService.addErrorMessages(httpResponse.data.errors);
         }
 
-        ThreadsResource.get(params, success, error);
+        return ThreadsResource.get(params, success, error);
     }
 
     $scope.create = function() {
 
         if ($scope.user == undefined) {
-
             MessagesService.add({
-                text: "Please sign in or register!",
+                text: "Please sign in or register.",
                 level: 'danger'
             });
 
@@ -37,6 +36,10 @@ app.controller('ThreadsController', function($scope, ThreadsResource, Pagination
         }
 
         if ($scope.title == '') {
+            MessagesService.add({
+                text: "Thread title cannot be empty.",
+                level: 'danger'
+            });
             return false;
         }
 
@@ -47,13 +50,17 @@ app.controller('ThreadsController', function($scope, ThreadsResource, Pagination
         var success = function(value, responseHeaders) {
             $scope.title = '';
             $scope.get();
+            MessagesService.add({
+                text: "Thread was created successfully.",
+                level: 'success'
+            });
         }
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
+            MessagesService.addErrorMessages(httpResponse.data.errors);
         }
 
-        ThreadsResource.save({}, postData, success, error);
+        return ThreadsResource.save({}, postData, success, error);
     };
 
     angular.element(document).ready(function() {

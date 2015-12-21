@@ -37,10 +37,11 @@
                 <div class="collapse navbar-collapse" id="js-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#/threads">Threads</a></li>
-                        <li><a href="#/users/login">Sign in</a></li>
-                        <li><a href="#/users">Register</a></li>
                         <li><a href="#/about">About</a></li>
+                        <li><a href="#/users/login" ng-show="{{user === undefined}}">Sign in</a></li>
+                        <li><a href="#/users" ng-show="{{user === undefined}}">Register</a></li>
                     </ul>
+                    <p class="navbar-text navbar-right" ng-show="{{user !== undefined}}">Signed in as {{user.first_name}} {{user.last_name}}</p>
                 </div>
             </div>
         </div>

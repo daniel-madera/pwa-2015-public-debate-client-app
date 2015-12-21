@@ -67,4 +67,16 @@ app.service('MessagesService', function() {
     this.getMessages = function() {
         return messages;
     }
+
+    this.addErrorMessages = function(errors) {
+        if (errors === undefined || errors.length == 0) {
+            return;
+        }
+        angular.forEach(errors, function(value, key) {
+            this.add({
+                text: value.user_message,
+                level: 'danger'
+            });
+        }, this);
+    }
 });
