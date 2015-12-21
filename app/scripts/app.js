@@ -38,9 +38,12 @@ app.config(function($routeProvider) {
 app.run(function($rootScope, $cookies, $http) {
 
     var user = $cookies.getObject('user');
-    $http.defaults.headers.post = {
-        'X-Access-Token': user.token
-    };
 
-    $rootScope.user = $cookies.getObject('user');
+    if (user != undefined) {
+        $http.defaults.headers.post = {
+            'X-Access-Token': user.token
+        };
+
+        $rootScope.user = $cookies.getObject('user');
+    }
 });
