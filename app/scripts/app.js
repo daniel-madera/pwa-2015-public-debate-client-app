@@ -11,8 +11,7 @@ app.config(function($routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: 'views/threads.html',
-            controller: 'ThreadsController',
+            redirectTo: '/threads'
         })
         .when('/threads', {
             templateUrl: 'views/threads.html',
@@ -35,7 +34,22 @@ app.config(function($routeProvider) {
         });
 });
 
-app.run(function($rootScope, $cookies, $http) {
+app.run(function($rootScope, $cookies, $http, MessagesService) {
+
+    $rootScope.$on('$routeChangeStart', function(next, current) {
+        $rootScope.clearMessages();
+    });
+
+    $rootScope.messages = MessagesService.getMessages();
+
+    $rootScope.closeMessage = function(index) {
+        MessagesService.remove($rootScope.messages[index]);
+    };
+
+    $rootScope.clearMessages = function() {
+        MessagesService.clear();
+        $rootScope.messages = MessagesService.getMessages();
+    };
 
     var user = $cookies.getObject('user');
 

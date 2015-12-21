@@ -88,3 +88,11 @@ a:hover {
 .login {
     width: 50%;
 }
+
+#newThread .form-group {
+    width: 100%;
+}
+
+#newThread input[type="text"] {
+    width: 70%;
+}

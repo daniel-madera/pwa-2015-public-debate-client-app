@@ -1,7 +1,12 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function($scope, ThreadsResource, PaginationService) {
+app.controller('ThreadsController', function($scope, ThreadsResource, PaginationService, MessagesService) {
+
+    $scope.closeMessage = function(index) {
+        MessagesService.remove($scope.messages[i]);
+    };
+
     $scope.get = function() {
         var params = {};
 
@@ -20,6 +25,17 @@ app.controller('ThreadsController', function($scope, ThreadsResource, Pagination
     }
 
     $scope.create = function() {
+
+        if ($scope.user == undefined) {
+
+            MessagesService.add({
+                text: "Please sign in or register!",
+                level: 'danger'
+            });
+
+            return false;
+        }
+
         if ($scope.title == '') {
             return false;
         }
