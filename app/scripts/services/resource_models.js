@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('publicDebate');
 
 var server = "http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate";

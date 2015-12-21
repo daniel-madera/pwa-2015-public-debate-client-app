@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('publicDebate');
 
 app.service('PaginationService', function() {
