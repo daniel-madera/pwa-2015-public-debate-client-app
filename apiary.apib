@@ -18,9 +18,9 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
             
-            Access-Control-Expose-Headers: Content-Range, Accept-Range
-            Content-Range: 0:2/2
-            Accept-Range: threads 50
+            access-control-expose-headers: content-range, accept-range
+            content-range: 0:2/2
+            accept-range: threads 50
     
     + Body
     
@@ -29,26 +29,26 @@ Public Debate is a simple API of threads (topics), posts and users.
                     {
                         "id": 1,
                         "url": "/threads/1",
-                        "url_posts": "/threads/1/posts",
+                        "urlPosts": "/threads/1/posts",
                         "title": "Mock thread 1",
                         "created": "2015-08-05T08:40:51.620Z",
                         "author": {
                             "id": 1,
-                            "first_name": "John",
-                            "last_name": "Smith",
+                            "firstName": "John",
+                            "lastName": "Smith",
                             "username": "john.smith"
                         }
                     },
                     {
                         "id": 2,
                         "url": "/threads/2",
-                        "url_posts": "/threads/2/posts",
+                        "urlPosts": "/threads/2/posts",
                         "title": "Mock thread 2",
                         "created": "2015-12-09T08:40:51.620Z",
                         "author": {
                             "id": 2,
-                            "first_name": "Jeremy",
-                            "last_name": "Jackson",
+                            "firstName": "Jeremy",
+                            "lastName": "Jackson",
                             "username": "jeremy.jackson"
                         }
                     }
@@ -60,10 +60,10 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
-            Content-Range: 0:1/2
-            Accept-Range: threads 50
-            Link: <http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="last"
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:1/2
+            accept-range: threads 50
+            link: <http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="last"
     
     + Body
     
@@ -72,13 +72,13 @@ Public Debate is a simple API of threads (topics), posts and users.
                     {
                         "id": 1,
                         "url": "/threads/1",
-                        "url_posts": "/threads/1/posts",
+                        "urlPosts": "/threads/1/posts",
                         "title": "Mock thread 1",
                         "created": "2015-08-05T08:40:51.620Z",
                         "author": {
                             "id": 1,
-                            "first_name": "John",
-                            "last_name": "Smith",
+                            "firstName": "John",
+                            "lastName": "Smith",
                             "username": "john.smith"
                         }
                     }
@@ -89,7 +89,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            Accept-Range: threads 50
+            accept-range: threads 50
     
     + Body
     
@@ -97,7 +97,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 "errors": [
                     {
                         "code": "limit_exceeded",
-                        "user_message": "Resources limit reached."
+                        "userMessage": "Resources limit reached."
                     }
                 ]    
             }
@@ -108,7 +108,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            X-Access-Token: {token}
+            x-access-token: {token}
     
     + Body
     
@@ -127,13 +127,13 @@ Public Debate is a simple API of threads (topics), posts and users.
             {
                 "id": 3,
                 "url": "/threads/3",
-                "url_posts": "/threads/3/posts",
+                "urlPosts": "/threads/3/posts",
                 "title": "This is a new mock thread",
                 "created": "2015-08-05T08:40:51.620Z",
                 "author": {
                     "id": 2,
-                    "first_name": "Jeremy",
-                    "last_name": "Jackson",
+                    "firstName": "Jeremy",
+                    "lastName": "Jackson",
                     "username": "jeremy.jackson"
                 }
             }
@@ -144,7 +144,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to create thread."
+                    "userMessage": "You're not allowed to create thread."
                 }
             ]
         }
@@ -162,13 +162,13 @@ Public Debate is a simple API of threads (topics), posts and users.
         {
             "id": 1,
             "url": "/threads/1",
-            "url_posts": "/threads/1/posts",
+            "urlPosts": "/threads/1/posts",
             "title": "Mock thread 1",
             "created": "2015-08-05T08:40:51.620Z",
             "author": {
                 "id": 1,
-                "first_name": "John",
-                "last_name": "Smith",
+                "firstName": "John",
+                "lastName": "Smith",
                 "username": "john.smith"
             }
         }
@@ -179,7 +179,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            X-Access-Token: {token}
+            x-access-token: {token}
     
     + Body
     
@@ -198,13 +198,13 @@ Public Debate is a simple API of threads (topics), posts and users.
             {
                 "id": 1,
                 "url": "/threads/1",
-                "url_posts": "/threads/1/posts",
+                "urlPosts": "/threads/1/posts",
                 "title": "This is a modified mock thread",
                 "created": "2015-08-05T08:40:51.620Z",
                 "author": {
                     "id": 1,
-                    "first_name": "John",
-                    "last_name": "Smith",
+                    "firstName": "John",
+                    "lastName": "Smith",
                     "username": "john.smith"
                 }
             }
@@ -216,7 +216,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to modify thread."
+                    "userMessage": "You're not allowed to modify thread."
                 }
             ]
         }
@@ -227,7 +227,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
             
-            X-Access-Token: {token}
+            x-access-token: {token}
 
 + Response 200
 
@@ -238,7 +238,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to remove thread."
+                    "userMessage": "You're not allowed to remove thread."
                 }
             ] 
         }
@@ -250,7 +250,7 @@ Public Debate is a simple API of threads (topics), posts and users.
     + thread_id (required, Number, `1`)
     + offset (optional, Number, `0`) 
     + limit (optional, Number, `2`)
-    + sort (optional, String, `-created,author.last_name`)
+    + sort (optional, String, `-created,author.lastName`)
 
 ### List [GET]
 
@@ -258,9 +258,9 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
-            Content-Range: 0:2/2
-            Accept-Range: posts 50
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:2/2
+            accept-range: posts 50
     
     + Body
     
@@ -271,8 +271,8 @@ Public Debate is a simple API of threads (topics), posts and users.
                         "text": "Mock post!",
                         "created": "2015-08-05T08:40:51.620Z",
                         "author": {
-                            "first_name": "John",
-                            "last_name": "Smith",
+                            "firstName": "John",
+                            "lastName": "Smith",
                             "username": "john.smith"
                         }
                     },
@@ -281,8 +281,8 @@ Public Debate is a simple API of threads (topics), posts and users.
                         "text": "Mock post 2!",
                         "created": "2015-08-05T08:40:51.620Z",
                         "author": {
-                            "first_name": "John",
-                            "last_name": "Smith",
+                            "firstName": "John",
+                            "lastName": "Smith",
                             "username": "john.smith"
                         }
                     }
@@ -294,10 +294,10 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            Access-Control-Expose-Headers: Content-Range, Accept-Range, Link
-            Content-Range: 0:1/2
-            Accept-Range: posts 50
-            Link: <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="last"
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:1/2
+            accept-range: posts 50
+            link: <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="last"
     
     + Body
     
@@ -308,8 +308,8 @@ Public Debate is a simple API of threads (topics), posts and users.
                         "text": "Mock post!",
                         "created": "2015-08-05T08:40:51.620Z",
                         "author": {
-                            "first_name": "John",
-                            "last_name": "Smith",
+                            "firstName": "John",
+                            "lastName": "Smith",
                             "username": "john.smith"
                         }
                     }
@@ -320,8 +320,8 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            Access-Control-Expose-Headers: Content-Range, Accept-Range
-            Accept-Range: posts 50
+            access-control-expose-headers: content-range, accept-range
+            accept-range: posts 50
     
     + Body
     
@@ -329,7 +329,7 @@ Public Debate is a simple API of threads (topics), posts and users.
                 "errors": [
                     {
                         "code": "limit_exceeded",
-                        "user_message": "Resources limit reached."
+                        "userMessage": "Resources limit reached."
                     }
                 ]    
             }
@@ -341,7 +341,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            X-Access-Token: {token}
+            x-access-token: {token}
     
     + Body
     
@@ -356,8 +356,8 @@ Public Debate is a simple API of threads (topics), posts and users.
             "text": "This is a new mock post",
             "created": "2015-08-05T08:40:51.620Z",
             "author": {
-                "first_name": "John",
-                "last_name": "Smith",
+                "firstName": "John",
+                "lastName": "Smith",
                 "username": "john.smith"
             }
         }
@@ -368,7 +368,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to create post."
+                    "userMessage": "You're not allowed to create post."
                 }
             ]
         }
@@ -385,7 +385,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
         
-            X-Access-Token: {token}
+            x-access-token: {token}
     
     + Body
         
@@ -402,7 +402,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to modify post unless you're it's author."
+                    "userMessage": "You're not allowed to modify post unless you're it's author."
                 }
             ]  
         }
@@ -413,7 +413,7 @@ Public Debate is a simple API of threads (topics), posts and users.
 
     + Headers
     
-            X-Access-Token: {token}
+            x-access-token: {token}
 
 + Response 200 (application/json)
 
@@ -424,7 +424,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "You're not allowed to remove post unless you're it's author."
+                    "userMessage": "You're not allowed to remove post unless you're it's author."
                 }
             ]  
         }
@@ -437,8 +437,8 @@ Public Debate is a simple API of threads (topics), posts and users.
 + Request (application/json)
 
         {
-            "first_name": "John",
-            "last_name": "Smith",
+            "firstName": "John",
+            "lastName": "Smith",
             "username": "john.smith",
             "password": "e6f55123d64024086dcc3f508c96bd29"
         }
@@ -447,8 +447,8 @@ Public Debate is a simple API of threads (topics), posts and users.
 
         {
             "id": 1,
-            "first_name": "John",
-            "last_name": "Smith",
+            "firstName": "John",
+            "lastName": "Smith",
             "username": "john.smith"
         }
 
@@ -458,7 +458,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "invalid_request",
-                    "user_message": "Invalid post data."
+                    "userMessage": "Invalid post data."
                 }
             ]  
         }
@@ -479,8 +479,8 @@ Public Debate is a simple API of threads (topics), posts and users.
 
         {
             "id": 1,
-            "first_name": "John",
-            "last_name": "Smith",
+            "firstName": "John",
+            "lastName": "Smith",
             "username": "john.smith",
             "token": "MUf55TwFXYgJ9xcc3f8dpG"
         }
@@ -491,7 +491,7 @@ Public Debate is a simple API of threads (topics), posts and users.
             "errors": [
                 {
                     "code": "unauthorized",
-                    "user_message": "Username or password is invalid."
+                    "userMessage": "Username or password is invalid."
                 }
             ]  
         }

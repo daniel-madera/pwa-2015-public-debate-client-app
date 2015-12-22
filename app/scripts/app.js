@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
             templateUrl: 'views/threads.html',
             controller: 'ThreadsController',
         })
-        .when('/threads/:thread_id/posts', {
+        .when('/threads/:threadId/posts', {
             templateUrl: 'views/posts.html',
             controller: 'PostsController',
         })
@@ -36,7 +36,7 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope, $cookies, $http, MessagesService) {
 
-    $rootScope.$on('$routeChangeStart', function(next, current) {
+    $rootScope.$on('$routeChangeStart', function() {
         $rootScope.clearMessages();
     });
 
@@ -53,7 +53,7 @@ app.run(function($rootScope, $cookies, $http, MessagesService) {
 
     var user = $cookies.getObject('user');
 
-    if (user != undefined) {
+    if (user !== undefined) {
         $http.defaults.headers.post = {
             'X-Access-Token': user.token
         };

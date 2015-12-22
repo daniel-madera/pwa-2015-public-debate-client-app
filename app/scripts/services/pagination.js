@@ -27,7 +27,7 @@ app.service('PaginationService', function() {
             links[name] = url;
         }
         return links;
-    }
+    };
 
     /*
      *   Returns array of pagination values - (offset, limit, count),
@@ -35,6 +35,10 @@ app.service('PaginationService', function() {
      *   <offset>-<limit>/<count>.
      */
     this.parseContentRange = function(header) {
+        if (!header || header.length === 0) {
+            return undefined;
+        }
+
         var values = header.match(/\s*([0-9]+)\s*:\s*([0-9]+)\/\s*([0-9]+)\s*/);
 
         if (!values || values.length !== 4) {
@@ -46,13 +50,17 @@ app.service('PaginationService', function() {
             limit: parseInt(values[2]),
             count: parseInt(values[3])
         };
-    }
+    };
 
     /*
      *   Returns array of max paginator values - unit, max_limit (maximum count of resources that
      *   can be fetched from server). Format is defined as <unit> <max_limit>
      */
     this.parseAcceptRange = function(header) {
+        if (!header || header.length === 0) {
+            return undefined;
+        }
+
         var values = header.match(/\s*([a-zA-Z0-9]+)\s+([0-9]+)\s*/);
 
         if (!values || values.length !== 3) {
@@ -61,12 +69,12 @@ app.service('PaginationService', function() {
 
         return {
             unit: values[1],
-            max_limit: parseInt(values[2])
+            maxLimit: parseInt(values[2])
         };
-    }
+    };
 
     /*
-     *   Returns object with attributes - max_limit, offset, limit, links: {next, prev, fist, last}
+     *   Returns object with attributes - maxLimit, offset, limit, pageNumber, pageLimit, links: {next, prev, fist, last}
      */
     this.getPagination = function(headers) {
         var paginationObject = {};
@@ -82,11 +90,11 @@ app.service('PaginationService', function() {
             }
         );
 
-        if (paginationObject.offset != undefined && paginationObject.limit != undefined && paginationObject.count != undefined) {
-            paginationObject.page_number = Math.floor(paginationObject.offset / paginationObject.limit) + 1;
-            paginationObject.page_count = Math.ceil(paginationObject.count / paginationObject.limit);
+        if (paginationObject.offset !== undefined && paginationObject.limit !== undefined && paginationObject.count !== undefined) {
+            paginationObject.pageNumber = Math.floor(paginationObject.offset / paginationObject.limit) + 1;
+            paginationObject.pageCount = Math.ceil(paginationObject.count / paginationObject.limit);
         }
 
         return paginationObject.length === 0 ? undefined : paginationObject;
-    }
+    };
 });

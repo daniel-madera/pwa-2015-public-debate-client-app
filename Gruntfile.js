@@ -450,18 +450,8 @@ module.exports = function(grunt) {
                     '<%= yeoman.dist %>/index.html': '<%= yeoman.app %>/index.html'
                 }
             }
-        },
-
-        useminPrepare: {
-            // changed from app to dist, to take index.html processed by includeSource in dist
-            html: '<%= yeoman.dist %>/index.html',
-            options: {
-                dest: '<%= yeoman.dist %>'
-            }
-        },
-
+        }
     });
-
 
     grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
         if (target === 'dist') {

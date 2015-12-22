@@ -1,9 +1,9 @@
 <nav>
     <div class="text-center">
         <ul class="pager">
-            <li class="previous" ng-class="{disabled: pagination.links.prev == undefined}"><a ng-click="prev()"><span aria-hidden="true">&larr;</span> Previous</a></li>
-            <li>{{pagination.page_number}}/{{pagination.page_count}}</li>
-            <li class="next" ng-class="{disabled: pagination.links.next == undefined}"><a ng-click="next()">Next <span aria-hidden="true">&rarr;</span></a></li>
+            <li class="previous" ng-class="{disabled: pagination.links.prev === undefined}"><a ng-click="prev()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+            <li>{{pagination.pageNumber}}/{{pagination.pageCount}}</li>
+            <li class="next" ng-class="{disabled: pagination.links.next === undefined}"><a ng-click="next()">Next <span aria-hidden="true">&rarr;</span></a></li>
         </ul>
     </div>
 </nav>

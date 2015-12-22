@@ -1,36 +1,37 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('UsersController', function($scope, $cookies, $location, UserLoginResource, UsersResource) {
+app.controller('UsersController', function($scope, $cookies, $location, UserLoginResource,
+    UsersResource, MessagesService) {
 
     $scope.login = function() {
-        if ($scope.username == "" || $scope.password == "") {
+        if (!$scope.username || !$scope.password) {
             return false;
         }
 
-        var success = function(value, responseHeaders) {
+        var success = function(value) {
             $cookies.putObject('user', value);
             $location.path('#/threads');
-        }
+        };
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
-        }
+            MessagesService.addErrorMessages(httpResponse.data.errors);
+        };
 
-        UserLoginResource.login({}, $scope.user, success, error);
-    }
+        return UserLoginResource.login({}, $scope.user, success, error);
+    };
 
     $scope.register = function() {
 
-        var success = function(value, responseHeaders) {
+        var success = function() {
             $scope.login();
-        }
+        };
 
         var error = function(httpResponse) {
-            console.log(httpResponse);
-        }
+            MessagesService.addErrorMessages(httpResponse.data.errors);
+        };
 
-        UsersResource.save({}, $scope.user, success, error);
-    }
+        return UsersResource.save({}, $scope.user, success, error);
+    };
 
 });

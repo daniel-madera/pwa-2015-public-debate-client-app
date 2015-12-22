@@ -3,29 +3,38 @@
 var app = angular.module('publicDebate');
 
 app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService, MessagesService) {
-    $scope.thread_id = $routeParams.thread_id;
+    $scope.threadId = $routeParams.threadId;
 
     $scope.get = function() {
         var params = {
-            thread_id: $scope.thread_id
-        }
+            threadId: $scope.threadId
+        };
 
         var success = function(value, responseHeaders) {
             $scope.postsObject = value;
             angular.extend($scope.postsObject, {
                 pagination: PaginationService.getPagination(responseHeaders)
             });
-        }
+        };
 
         var error = function(httpResponse) {
             MessagesService.addErrorMessages(httpResponse.data.errors);
-        }
+        };
 
         return PostsResource.get(params, success, error);
-    }
+    };
 
     $scope.create = function() {
-        if ($scope.text == '') {
+        if (!$scope.user) {
+            MessagesService.add({
+                text: 'Please sign in or register.',
+                level: 'danger'
+            });
+
+            return false;
+        }
+
+        if (!$scope.text) {
             return false;
         }
 
@@ -33,21 +42,21 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
             text: $scope.text
         };
 
-        var success = function(value, responseHeaders) {
+        var success = function() {
             $scope.text = '';
             $scope.get();
             MessagesService.add({
-                text: "Post was created successfully.",
+                text: 'Post was created successfully.',
                 level: 'success'
             });
-        }
+        };
 
         var error = function(httpResponse) {
             MessagesService.addErrorMessages(httpResponse.data.errors);
-        }
+        };
 
         return PostsResource.save({
-            thread_id: $scope.thread_id
+            threadId: $scope.threadId
         }, postData, success, error);
     };
 
