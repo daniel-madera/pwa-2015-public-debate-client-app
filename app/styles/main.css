@@ -63,12 +63,12 @@ a:hover {
     margin-top: 20px;
 }
 
-.data-list li > a {
+.data-list li > div {
     padding: 8px;
     border-top: 1px solid #e3e3e3;
 }
 
-.data-list li > a:hover {
+.data-list li > div:hover {
     background: #e3e3e3;
 }
 
@@ -85,6 +85,10 @@ a:hover {
     display: block;
 }
 
+.clear {
+    clear: both;
+}
+
 .login {
     width: 50%;
 }
@@ -95,4 +99,12 @@ a:hover {
 
 #newThread input[type="text"] {
     width: 70%;
+}
+
+.data-list li .body {
+    width: calc(100% - 55px);
+}
+
+.data-list li .actions {
+    width: 55px;
 }

@@ -13,6 +13,10 @@ app.config(function($routeProvider) {
         .when('/', {
             redirectTo: '/threads'
         })
+        .when('/threads/:threadId', {
+            templateUrl: 'views/threads.html',
+            controller: 'ThreadsController',
+        })
         .when('/threads', {
             templateUrl: 'views/threads.html',
             controller: 'ThreadsController',
@@ -27,6 +31,10 @@ app.config(function($routeProvider) {
         })
         .when('/users/login', {
             templateUrl: 'views/login.html',
+            controller: 'UsersController',
+        })
+        .when('/users/logout', {
+            templateUrl: 'views/logout.html',
             controller: 'UsersController',
         })
         .otherwise({
