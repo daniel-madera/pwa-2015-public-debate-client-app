@@ -2,12 +2,13 @@
 
 var app = angular.module('publicDebate');
 
-app.controller('PostsController', function($scope, $routeParams, PostsResource, PaginationService, MessagesService) {
-    $scope.threadId = $routeParams.threadId;
+app.controller('PostsController', function($scope, $routeParams, PostsResource, ThreadsResource, PaginationService, MessagesService) {
+    $scope.thread = {};
+    $scope.thread.id = $routeParams.threadId;
 
     $scope.get = function() {
         var params = {
-            threadId: $scope.threadId
+            threadId: $scope.thread.id
         };
 
         var success = function(value, responseHeaders) {
@@ -17,11 +18,15 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
             });
         };
 
+        var success1 = function(value, responseHeaders) {
+            $scope.thread = value;
+        };
+
         var error = function(httpResponse) {
             MessagesService.addErrorMessages(httpResponse.data.errors);
         };
 
-        return PostsResource.get(params, success, error);
+        return PostsResource.get(params, success, error) && ThreadsResource.get(params, success1, error);
     };
 
     $scope.create = function() {

@@ -4,7 +4,6 @@ var app = angular.module('publicDebate');
 app.controller('ThreadsController', function($scope, $routeParams, $filter, $location, ThreadsResource, PaginationService, MessagesService) {
 
     $scope.get = function() {
-        var params = {};
 
         var success = function(value, responseHeaders) {
             $scope.threadsObject = value;
@@ -18,7 +17,7 @@ app.controller('ThreadsController', function($scope, $routeParams, $filter, $loc
             MessagesService.addErrorMessages(httpResponse.data.errors);
         };
 
-        return ThreadsResource.get(params, success, error);
+        return ThreadsResource.get({}, success, error);
     };
 
     $scope.create = function() {

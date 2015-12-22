@@ -3,6 +3,7 @@
     <textarea name="postText" class="form-control" rows="3" placeholder="Type in new post text" ng-model="text"></textarea>
     <button type="submit" class="btn btn-primary pull-right">Submit</button>
 </form>
+<h3>{{thread.title}}</h3>
 <ul class="posts data-list list-unstyled">
     <li ng-repeat="post in postsObject.posts">
         <a class="block clearfix">
