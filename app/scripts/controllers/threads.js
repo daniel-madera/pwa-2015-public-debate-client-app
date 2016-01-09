@@ -1,23 +1,25 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function($scope, $routeParams, $filter, $location, ThreadsResource, PaginationService, MessagesService) {
+app.controller('ThreadsController', function($scope, $routeParams, $http, $filter, $location, PaginationService, MessagesService) {
 
     $scope.get = function() {
+        return $http.get($scope.server + '/threads')
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.threadsObject = data;
+                // appends pagination object to data (threadsObject)
+                angular.extend($scope.threadsObject, {
+                    pagination: PaginationService.getPagination(headers)
+                });
 
-        var success = function(value, responseHeaders) {
-            $scope.threadsObject = value;
-            angular.extend($scope.threadsObject, {
-                pagination: PaginationService.getPagination(responseHeaders)
+                console.log('Thread data were fetched.');
+
+                $scope.select();
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
             });
-            $scope.select();
-        };
-
-        var error = function(httpResponse) {
-            MessagesService.addErrorMessages(httpResponse.data.errors);
-        };
-
-        return ThreadsResource.get({}, success, error);
     };
 
     $scope.create = function() {
@@ -43,20 +45,19 @@ app.controller('ThreadsController', function($scope, $routeParams, $filter, $loc
             title: $scope.thread.title
         };
 
-        var success = function() {
-            $scope.thread = undefined;
-            $scope.get();
-            MessagesService.add({
-                text: 'Thread was created successfully.',
-                level: 'success'
+        return $http.post($scope.server + '/threads', postData)
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.thread = undefined;
+                MessagesService.add({
+                    text: 'Thread was successfully created.',
+                    level: 'success'
+                });
+                $location.path('/threads');
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
             });
-        };
-
-        var error = function(httpResponse) {
-            MessagesService.addErrorMessages(httpResponse.data.errors);
-        };
-
-        return ThreadsResource.save({}, postData, success, error);
     };
 
     $scope.edit = function() {
@@ -90,24 +91,19 @@ app.controller('ThreadsController', function($scope, $routeParams, $filter, $loc
             title: $scope.thread.title
         };
 
-        var success = function() {
-            $scope.thread = undefined;
-            $scope.get();
-            MessagesService.add({
-                text: 'Thread was modified successfully.',
-                level: 'success'
+        return $http.patch($scope.server + '/threads/' + $scope.thread.id, postData)
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.thread = undefined;
+                MessagesService.add({
+                    text: 'Thread was successfully modified.',
+                    level: 'success'
+                });
+                $location.path('/threads');
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
             });
-            $scope.threadId = null;
-        };
-
-        var error = function(httpResponse) {
-            console.log(httpResponse);
-            MessagesService.addErrorMessages(httpResponse.data.errors);
-        };
-
-        return ThreadsResource.patch({
-            threadId: $scope.thread.id
-        }, postData, success, error);
     };
 
     $scope.select = function() {

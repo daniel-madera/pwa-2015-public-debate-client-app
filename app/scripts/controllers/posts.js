@@ -2,31 +2,33 @@
 
 var app = angular.module('publicDebate');
 
-app.controller('PostsController', function($scope, $routeParams, PostsResource, ThreadsResource, PaginationService, MessagesService) {
+app.controller('PostsController', function($scope, $routeParams, $location, $http, PaginationService, MessagesService) {
     $scope.thread = {};
     $scope.thread.id = $routeParams.threadId;
 
     $scope.get = function() {
-        var params = {
-            threadId: $scope.thread.id
-        };
-
-        var success = function(value, responseHeaders) {
-            $scope.postsObject = value;
-            angular.extend($scope.postsObject, {
-                pagination: PaginationService.getPagination(responseHeaders)
+        var result = $http.get($scope.server + '/threads/' + $scope.thread.id + '/posts')
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.postsObject = data;
+                angular.extend($scope.postsObject, {
+                    pagination: PaginationService.getPagination(headers)
+                });
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
             });
-        };
 
-        var success1 = function(value, responseHeaders) {
-            $scope.thread = value;
-        };
+        result = result && $http.get($scope.server + '/threads/' + $scope.thread.id)
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.thread = data;
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
+            });
 
-        var error = function(httpResponse) {
-            MessagesService.addErrorMessages(httpResponse.data.errors);
-        };
-
-        return PostsResource.get(params, success, error) && ThreadsResource.get(params, success1, error);
+        return result;
     };
 
     $scope.create = function() {
@@ -35,7 +37,6 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
                 text: 'Please sign in or register.',
                 level: 'danger'
             });
-
             return false;
         }
 
@@ -47,22 +48,19 @@ app.controller('PostsController', function($scope, $routeParams, PostsResource, 
             text: $scope.text
         };
 
-        var success = function() {
-            $scope.text = '';
-            $scope.get();
-            MessagesService.add({
-                text: 'Post was created successfully.',
-                level: 'success'
+        return $http.post($scope.server + '/threads/' + $scope.thread.id + '/posts', postData)
+            /* jshint unused:vars */
+            .success(function(data, status, headers, config) {
+                $scope.text = '';
+                MessagesService.add({
+                    text: 'Post was successfully created.',
+                    level: 'success'
+                });
+                $location.path('/threads/' + $scope.thread.id + '/posts');
+            })
+            .error(function(data, status, headers, config) {
+                MessagesService.addErrorMessages(data.errors);
             });
-        };
-
-        var error = function(httpResponse) {
-            MessagesService.addErrorMessages(httpResponse.data.errors);
-        };
-
-        return PostsResource.save({
-            threadId: $scope.threadId
-        }, postData, success, error);
     };
 
     angular.element(document).ready(function() {

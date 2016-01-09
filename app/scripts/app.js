@@ -1,10 +1,8 @@
 'use strict';
 
 var app = angular.module('publicDebate', [
-    'ngAnimate',
     'ngCookies',
-    'ngResource',
-    'ngRoute'
+    'ngRoute',
 ]);
 
 app.config(function($routeProvider) {
@@ -40,15 +38,18 @@ app.config(function($routeProvider) {
         .otherwise({
             redirectTo: '/'
         });
+
 });
 
-app.run(function($rootScope, $cookies, $http, MessagesService) {
+app.run(function($rootScope, $cookies, $http, $timeout, MessagesService) {
 
-    $rootScope.$on('$routeChangeStart', function() {
-        $rootScope.clearMessages();
-    });
+    $rootScope.server = 'http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate';
 
     $rootScope.messages = MessagesService.getMessages();
+
+    $timeout(function() {
+        $rootScope.clearMessages();
+    }, 10000);
 
     $rootScope.closeMessage = function(index) {
         MessagesService.remove($rootScope.messages[index]);
@@ -60,12 +61,10 @@ app.run(function($rootScope, $cookies, $http, MessagesService) {
     };
 
     var user = $cookies.getObject('user');
-
     if (user !== undefined) {
         $http.defaults.headers.post = {
             'X-Access-Token': user.token
         };
-
-        $rootScope.user = $cookies.getObject('user');
+        $rootScope.user = user;
     }
 });
