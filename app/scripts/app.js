@@ -43,7 +43,8 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope, $cookies, $http, $timeout, MessagesService) {
 
-    $rootScope.server = 'http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate';
+    // $rootScope.server = 'http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate';
+    $rootScope.server = 'http://127.0.0.1:3000';
 
     $rootScope.messages = MessagesService.getMessages();
 

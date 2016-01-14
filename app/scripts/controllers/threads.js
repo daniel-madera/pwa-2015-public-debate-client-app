@@ -1,12 +1,12 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function($scope, $routeParams, $http, $filter, $location, PaginationService, MessagesService) {
+app.controller('ThreadsController', function ($scope, $routeParams, $http, $filter, $location, PaginationService, MessagesService) {
 
-    $scope.get = function() {
+    $scope.get = function () {
         return $http.get($scope.server + '/threads')
             /* jshint unused:vars */
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 $scope.threadsObject = data;
                 // appends pagination object to data (threadsObject)
                 angular.extend($scope.threadsObject, {
@@ -17,12 +17,12 @@ app.controller('ThreadsController', function($scope, $routeParams, $http, $filte
 
                 $scope.select();
             })
-            .error(function(data, status, headers, config) {
+            .error(function (data, status, headers, config) {
                 MessagesService.addErrorMessages(data.errors);
             });
     };
 
-    $scope.create = function() {
+    $scope.create = function () {
 
         if ($scope.user === undefined) {
             MessagesService.add({
@@ -47,20 +47,20 @@ app.controller('ThreadsController', function($scope, $routeParams, $http, $filte
 
         return $http.post($scope.server + '/threads', postData)
             /* jshint unused:vars */
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 $scope.thread = undefined;
                 MessagesService.add({
                     text: 'Thread was successfully created.',
                     level: 'success'
                 });
-                $location.path('/threads');
+                $scope.get();
             })
-            .error(function(data, status, headers, config) {
+            .error(function (data, status, headers, config) {
                 MessagesService.addErrorMessages(data.errors);
             });
     };
 
-    $scope.edit = function() {
+    $scope.edit = function () {
 
         if ($scope.user === undefined) {
             MessagesService.add({
@@ -93,7 +93,7 @@ app.controller('ThreadsController', function($scope, $routeParams, $http, $filte
 
         return $http.patch($scope.server + '/threads/' + $scope.thread.id, postData)
             /* jshint unused:vars */
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 $scope.thread = undefined;
                 MessagesService.add({
                     text: 'Thread was successfully modified.',
@@ -101,12 +101,12 @@ app.controller('ThreadsController', function($scope, $routeParams, $http, $filte
                 });
                 $location.path('/threads');
             })
-            .error(function(data, status, headers, config) {
+            .error(function (data, status, headers, config) {
                 MessagesService.addErrorMessages(data.errors);
             });
     };
 
-    $scope.select = function() {
+    $scope.select = function () {
         // if is specified threadId (threads/1) then set 
         // selected thread to $scope.thread variable
         if ($routeParams.threadId && $scope.threadsObject) {
@@ -119,7 +119,7 @@ app.controller('ThreadsController', function($scope, $routeParams, $http, $filte
         }
     };
 
-    angular.element(document).ready(function() {
+    angular.element(document).ready(function () {
         $scope.get();
     });
 });
