@@ -1,0 +1,10 @@
+<div class="collapse navbar-collapse" id="js-navbar-collapse">
+    <ul class="nav navbar-nav">
+        <li><a href="#/threads">Threads</a></li>
+        <li><a href="#/about">About</a></li>
+        <li><a href="#/users/login" ng-show="!$root.user">Sign in</a></li>
+        <li><a href="#/users" ng-show="!$root.user">Register</a></li>
+        <li><a href="#/users/logout" ng-show="$root.user">Logout</a></li>
+    </ul>
+    <p class="navbar-text navbar-right" ng-show="$root.user">Signed in as {{$root.user.firstName}} {{$root.user.lastName}}</p>
+</div>

@@ -11,7 +11,7 @@
                 <span class="block pull-left text">{{thread.title}}</span>
                 <span class="block pull-left author">{{thread.author.username}}</span>
             </a>
-            <span class="block pull-left actions text-right" ng-show="{{user.username === thread.author.username}}"><a href="#/threads/{{thread.id}}">Edit</a></span>
+            <span class="block pull-left actions text-right" ng-show="{{user && user.username === thread.author.username}}"><a href="#/threads/{{thread.id}}">Edit</a></span>
             <div class="clear"></div>
         </div>
     </li>

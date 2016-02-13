@@ -1,53 +1,52 @@
-'use strict';
-
 var app = angular.module('publicDebate');
-app.controller('UsersController', function($scope, $http, $route, $cookies, $window, $location, MessagesService) {
+app.controller('UsersController', function ($scope, $rootScope, $http, $route, $location, MessagesService) {
 
-    $scope.saveuser = function(user) {
-        $cookies.putObject('user', user);
-        $scope.user = user;
-        $location.path('/threads');
-        $window.location.reload();
-    };
-
-    $scope.login = function() {
+    'use strict';
+    $scope.login = function () {
         if (!$scope.user || !$scope.user.username || !$scope.user.password) {
             return false;
         }
 
         return $http.post($scope.server + '/users/login', $scope.user)
             /* jshint unused:vars */
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 MessagesService.add({
                     text: 'Login was successfull.',
                     level: 'success'
                 });
-                $scope.saveuser(data);
+                $rootScope.user = data;
+                $http.defaults.headers.post = {
+                    'x-access-token': $rootScope.user.token
+                };
+                $location.path('/threads');
             })
-            .error(function(data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+            .error(function (data, status, headers, config) {
+                MessagesService.addErrorMessage(data);
             });
     };
 
-    $scope.logout = function() {
-        $cookies.remove('user');
-        $scope.user = undefined;
+    $scope.logout = function () {
+        $rootScope.user = undefined;
+        $http.defaults.headers.post = {
+            'x-access-token': ''
+        };
         $location.path('/threads');
-        $window.location.reload();
     };
 
-    $scope.register = function() {
-        return $http.post($scope.server + '/users', $scope.user)
+    $scope.register = function () {
+        var user = $scope.user;
+        return $http.post($scope.server + '/users', user)
             /* jshint unused:vars */
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 MessagesService.add({
                     text: 'User was successfully created.',
                     level: 'success'
                 });
-                $scope.saveuser(data);
+                $rootScope.user = undefined;
+                $location.path('/threads');
             })
-            .error(function(data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+            .error(function (data, status, headers, config) {
+                MessagesService.addErrorMessage(data);
             });
     };
 

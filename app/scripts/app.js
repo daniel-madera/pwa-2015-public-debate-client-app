@@ -2,10 +2,10 @@
 
 var app = angular.module('publicDebate', [
     'ngCookies',
-    'ngRoute',
+    'ngRoute'
 ]);
 
-app.config(function($routeProvider) {
+app.config(function ($routeProvider) {
 
     $routeProvider
         .when('/', {
@@ -41,31 +41,47 @@ app.config(function($routeProvider) {
 
 });
 
-app.run(function($rootScope, $cookies, $http, $timeout, MessagesService) {
+app.run(function ($rootScope, $cookies, $http, $timeout, MessagesService) {
 
     // $rootScope.server = 'http://private-54742-pwa2015publicdebate.apiary-mock.com/pwa2015publicdebate';
     $rootScope.server = 'http://127.0.0.1:3000';
 
     $rootScope.messages = MessagesService.getMessages();
 
-    $timeout(function() {
+    $timeout(function () {
         $rootScope.clearMessages();
     }, 10000);
 
-    $rootScope.closeMessage = function(index) {
+    $rootScope.closeMessage = function (index) {
         MessagesService.remove($rootScope.messages[index]);
     };
 
-    $rootScope.clearMessages = function() {
+    $rootScope.clearMessages = function () {
         MessagesService.clear();
         $rootScope.messages = MessagesService.getMessages();
     };
 
-    var user = $cookies.getObject('user');
-    if (user !== undefined) {
+    // test purpose
+    // $rootScope.user = {
+    //     username: 'daniel.madera',
+    //     token: 'daniel.madera',
+    //     firstName: 'Daniel',
+    //     lastName: 'Maděra'
+    // };
+
+    if ($rootScope.user !== undefined) {
         $http.defaults.headers.post = {
-            'X-Access-Token': user.token
+            'x-access-token': $rootScope.user.token
         };
-        $rootScope.user = user;
     }
 });
+
+app.directive('menu', function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {},
+        templateUrl: 'views/menu.html',
+        controller: function ($scope) {}
+    }
+})

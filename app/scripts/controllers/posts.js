@@ -16,7 +16,7 @@ app.controller('PostsController', function ($scope, $routeParams, $location, $ht
                 });
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
 
         result = result && $http.get($scope.server + '/threads/' + $scope.thread.id)
@@ -25,7 +25,7 @@ app.controller('PostsController', function ($scope, $routeParams, $location, $ht
                 $scope.thread = data;
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
 
         return result;
@@ -56,11 +56,10 @@ app.controller('PostsController', function ($scope, $routeParams, $location, $ht
                     text: 'Post was successfully created.',
                     level: 'success'
                 });
-                // $location.path('/threads/' + $scope.thread.id + '/posts');
                 $scope.get();
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
     };
 

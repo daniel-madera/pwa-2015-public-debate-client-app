@@ -2,33 +2,33 @@
 
 var app = angular.module('publicDebate');
 
-app.service('MessagesService', function() {
+app.service('MessagesService', function () {
 
     var messages = [];
 
     var defaultMessages = [{
         title: 'Well done!',
-        text: 'Operation was successfull.',
+        message: 'Operation was successfull.',
         level: 'success'
     }, {
         title: 'Heads up!',
-        text: '',
+        message: '',
         level: 'info'
     }, {
         title: 'Warning!',
-        text: '',
+        message: '',
         level: 'warning'
     }, {
         title: 'Oh snap!',
-        text: '',
+        message: '',
         level: 'danger'
     }];
 
     /*
      *  Adds message to array of massages.
-     *  Message contains attributes text, level.
+     *  Message contains attributes message, level.
      */
-    this.add = function(message) {
+    this.add = function (message) {
 
         var finalMessage, i;
         for (i = 0; i < defaultMessages.length; i++) {
@@ -55,28 +55,28 @@ app.service('MessagesService', function() {
         }
     };
 
-    this.remove = function(message) {
+    this.remove = function (message) {
         var index = messages.indexOf(message);
         messages.splice(index, 1);
     };
 
-    this.clear = function() {
+    this.clear = function () {
         messages = [];
     };
 
-    this.getMessages = function() {
+    this.getMessages = function () {
         return messages;
     };
 
-    this.addErrorMessages = function(errors) {
-        if (!errors || errors.length === 0) {
+    this.addErrorMessage = function (error) {
+        if (!error || !error.message) {
+            console.log('Invalid error object');
+            console.log(error);
             return;
         }
-        angular.forEach(errors, function(value) {
-            this.add({
-                text: value.userMessage,
-                level: 'danger'
-            });
-        }, this);
+        this.add({
+            text: error.message,
+            level: 'danger'
+        });
     };
 });

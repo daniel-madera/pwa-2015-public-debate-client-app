@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('publicDebate');
-app.controller('ThreadsController', function ($scope, $routeParams, $http, $filter, $location, PaginationService, MessagesService) {
+app.controller('ThreadsController', function ($scope, $rootScope, $routeParams, $http, $filter, $location, PaginationService, MessagesService) {
 
     $scope.get = function () {
         return $http.get($scope.server + '/threads')
@@ -13,18 +13,16 @@ app.controller('ThreadsController', function ($scope, $routeParams, $http, $filt
                     pagination: PaginationService.getPagination(headers)
                 });
 
-                console.log('Thread data were fetched.');
-
                 $scope.select();
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
     };
 
     $scope.create = function () {
 
-        if ($scope.user === undefined) {
+        if ($rootScope.user === undefined) {
             MessagesService.add({
                 text: 'Please sign in or register.',
                 level: 'danger'
@@ -56,7 +54,7 @@ app.controller('ThreadsController', function ($scope, $routeParams, $http, $filt
                 $scope.get();
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
     };
 
@@ -94,15 +92,14 @@ app.controller('ThreadsController', function ($scope, $routeParams, $http, $filt
         return $http.patch($scope.server + '/threads/' + $scope.thread.id, postData)
             /* jshint unused:vars */
             .success(function (data, status, headers, config) {
-                $scope.thread = undefined;
                 MessagesService.add({
                     text: 'Thread was successfully modified.',
                     level: 'success'
                 });
-                $location.path('/threads');
+                $scope.thread = undefined;
             })
             .error(function (data, status, headers, config) {
-                MessagesService.addErrorMessages(data.errors);
+                MessagesService.addErrorMessage(data);
             });
     };
 
