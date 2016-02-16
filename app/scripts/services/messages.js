@@ -43,7 +43,7 @@ app.service('MessagesService', function () {
 
             for (i = 0; i < messages.length; i++) {
                 if (angular.equals(messages[i], finalMessage)) {
-                    console.log('Message already exists!');
+                    // console.log('Message already exists!');
                     return;
                 }
             }
