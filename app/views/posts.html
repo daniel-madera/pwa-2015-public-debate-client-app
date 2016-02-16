@@ -1,0 +1,16 @@
+<form ng-submit="create()" class="form-horizontal clearfix">
+    <label for="postText">New Post</label>
+    <textarea name="postText" class="form-control" rows="3" placeholder="Type in new post text" ng-model="text"></textarea>
+    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+</form>
+<h3>{{thread.title}}</h3>
+<ul class="posts data-list list-unstyled">
+    <li ng-repeat="post in postsObject.posts">
+        <a class="block clearfix">
+            <span class="block pull-left text">{{post.text}}</span>
+            <span class="block pull-left author">{{post.author.username}}</span>
+        </a>
+    </li>
+</ul>
+<div ng-include="'views/templates/pagination.html'" ng-repeat="pagination in [postsObject.pagination]">
+</div>

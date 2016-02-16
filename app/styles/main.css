@@ -32,9 +32,9 @@ footer {
     margin-top: 30px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1100px) {
     .container {
-        max-width: 730px;
+        max-width: 1100px;
     }
     .header,
     .footer {
@@ -44,4 +44,67 @@ footer {
     .header {
         margin-bottom: 30px;
     }
+}
+
+.form-horizontal button[type="submit"] {
+    margin-top: 10px;
+}
+
+.pager li > a,
+.pager li > span {
+    border-radius: 4px;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.data-list {
+    margin-top: 20px;
+}
+
+.data-list li > div {
+    padding: 8px;
+    border-top: 1px solid #e3e3e3;
+}
+
+.data-list li > div:hover {
+    background: #e3e3e3;
+}
+
+.data-list li .text {
+    width: 80%;
+}
+
+.data-list li .author {
+    width: 20%;
+    text-align: right;
+}
+
+.block {
+    display: block;
+}
+
+.clear {
+    clear: both;
+}
+
+.login {
+    width: 50%;
+}
+
+#newThread .form-group {
+    width: 100%;
+}
+
+#newThread input[type="text"] {
+    width: 70%;
+}
+
+.data-list li .body {
+    width: calc(100% - 55px);
+}
+
+.data-list li .actions {
+    width: 55px;
 }

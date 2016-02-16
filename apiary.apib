@@ -1,0 +1,497 @@
+FORMAT: 1A
+HOST: http://app.apiary.io/pwa2015publicdebate
+
+# Simple public debate API
+
+Public Debate is a simple API of threads (topics), posts and users.
+
+## Threads [/threads{?offset,limit,sort}]
+ 
++ Parameters  
+    + offset (optional, Number, `0`)
+    + limit (optional, Number, `2`)
+    + sort (optional, String, `-created,title`)
+
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            access-control-expose-headers: content-range, accept-range
+            content-range: 0:2/2
+            accept-range: threads 50
+    
+    + Body
+    
+            {
+                "threads": [
+                    {
+                        "id": 1,
+                        "url": "/threads/1",
+                        "urlPosts": "/threads/1/posts",
+                        "title": "Mock thread 1",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "id": 1,
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "url": "/threads/2",
+                        "urlPosts": "/threads/2/posts",
+                        "title": "Mock thread 2",
+                        "created": "2015-12-09T08:40:51.620Z",
+                        "author": {
+                            "id": 2,
+                            "firstName": "Jeremy",
+                            "lastName": "Jackson",
+                            "username": "jeremy.jackson"
+                        }
+                    }
+                ]
+            }
+    
+
++ Response 206 (application/json)
+
+    + Headers
+    
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:1/2
+            accept-range: threads 50
+            link: <http://app.apiary.io/pwa2015publicdebate/threads?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads?offset=1&limit=1>; rel="last"
+    
+    + Body
+    
+            {   
+                "threads": [
+                    {
+                        "id": 1,
+                        "url": "/threads/1",
+                        "urlPosts": "/threads/1/posts",
+                        "title": "Mock thread 1",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "id": 1,
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "username": "john.smith"
+                        }
+                    }
+                ]
+            }
+
++ Response 400 (application/json)
+
+    + Headers
+    
+            accept-range: threads 50
+    
+    + Body
+    
+            {
+                "errors": [
+                    {
+                        "code": "limit_exceeded",
+                        "userMessage": "Resources limit reached."
+                    }
+                ]    
+            }
+
+### Create [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            x-access-token: {token}
+    
+    + Body
+    
+            {
+                "title": "This is a new mock thread"
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+            
+    
+    + Body
+        
+            {
+                "id": 3,
+                "url": "/threads/3",
+                "urlPosts": "/threads/3/posts",
+                "title": "This is a new mock thread",
+                "created": "2015-08-05T08:40:51.620Z",
+                "author": {
+                    "id": 2,
+                    "firstName": "Jeremy",
+                    "lastName": "Jackson",
+                    "username": "jeremy.jackson"
+                }
+            }
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to create thread."
+                }
+            ]
+        }
+
+
+## Specific Thread [/threads/{thread_id}]
+
++ Parameters
+    + thread_id (required, Number)
+
+### Retrieve [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "url": "/threads/1",
+            "urlPosts": "/threads/1/posts",
+            "title": "Mock thread 1",
+            "created": "2015-08-05T08:40:51.620Z",
+            "author": {
+                "id": 1,
+                "firstName": "John",
+                "lastName": "Smith",
+                "username": "john.smith"
+            }
+        }
+
+### Modify [PATCH]
+
++ Request (application/json)
+
+    + Headers
+    
+            x-access-token: {token}
+    
+    + Body
+    
+            {
+                "title": "This is a modified mock thread"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            
+    
+    + Body
+    
+            {
+                "id": 1,
+                "url": "/threads/1",
+                "urlPosts": "/threads/1/posts",
+                "title": "This is a modified mock thread",
+                "created": "2015-08-05T08:40:51.620Z",
+                "author": {
+                    "id": 1,
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "username": "john.smith"
+                }
+            }
+
+
++ Response 401 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to modify thread."
+                }
+            ]
+        }
+
+### Remove [DELETE]
+
++ Request (application/json)
+
+    + Headers
+            
+            x-access-token: {token}
+
++ Response 200
+
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to remove thread."
+                }
+            ] 
+        }
+
+
+## Posts [/threads/{thread_id}/posts{?offset,limit,sort}]
+ 
++ Parameters
+    + thread_id (required, Number, `1`)
+    + offset (optional, Number, `0`) 
+    + limit (optional, Number, `2`)
+    + sort (optional, String, `-created,author.lastName`)
+
+### List [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:2/2
+            accept-range: posts 50
+    
+    + Body
+    
+            {
+                "posts": [
+                    {
+                        "id": 1,
+                        "text": "Mock post!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "username": "john.smith"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "text": "Mock post 2!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "username": "john.smith"
+                        }
+                    }
+                ]
+            }
+    
+
++ Response 206 (application/json)
+
+    + Headers
+    
+            access-control-expose-headers: content-range, accept-range, link
+            content-range: 0:1/2
+            accept-range: posts 50
+            link: <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=0&limit=1>; rel="first", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="next", <http://app.apiary.io/pwa2015publicdebate/threads/1/posts?offset=1&limit=1>; rel="last"
+    
+    + Body
+    
+            {  
+                "posts": [
+                   {
+                        "id": 1,
+                        "text": "Mock post!",
+                        "created": "2015-08-05T08:40:51.620Z",
+                        "author": {
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "username": "john.smith"
+                        }
+                    }
+                ]
+            }
+
++ Response 400 (application/json)
+
+    + Headers
+    
+            access-control-expose-headers: content-range, accept-range
+            accept-range: posts 50
+    
+    + Body
+    
+            {
+                "errors": [
+                    {
+                        "code": "limit_exceeded",
+                        "userMessage": "Resources limit reached."
+                    }
+                ]    
+            }
+            
+        
+### Create [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            x-access-token: {token}
+    
+    + Body
+    
+            {
+                "text": "This is a new mock post"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "id": 3,
+            "text": "This is a new mock post",
+            "created": "2015-08-05T08:40:51.620Z",
+            "author": {
+                "firstName": "John",
+                "lastName": "Smith",
+                "username": "john.smith"
+            }
+        }
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to create post."
+                }
+            ]
+        }
+
+## Specific Post [/threads/{thread_id}/posts/{post_id}]
+
++ Parameters
+    + thread_id (required, Number)
+    + post_id (required, Number)
+
+### Modify [PATCH]
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: {token}
+    
+    + Body
+        
+            {
+                "text": "This is a modified mock post"
+            }
+
++ Response 200 (application/json)
+
+            
++ Response 401 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to modify post unless you're it's author."
+                }
+            ]  
+        }
+
+### Remove [DELETE]
+
++ Request (application/json)
+
+    + Headers
+    
+            x-access-token: {token}
+
++ Response 200 (application/json)
+
+
++ Response 401 (application/json)  
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "You're not allowed to remove post unless you're it's author."
+                }
+            ]  
+        }
+
+
+## Users [/users]
+        
+### Create [POST]
+
++ Request (application/json)
+
+        {
+            "firstName": "John",
+            "lastName": "Smith",
+            "username": "john.smith",
+            "password": "e6f55123d64024086dcc3f508c96bd29"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Smith",
+            "username": "john.smith"
+        }
+
++ Response 400 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "invalid_request",
+                    "userMessage": "Invalid post data."
+                }
+            ]  
+        }
+
+## User's Login [/users/login]
+
+### Login [POST]
+
++ Request (application/json)
+
+        {
+            "username": "john.smith",
+            "password": "e6f55123d64024086dcc3f508c96bd29"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Smith",
+            "username": "john.smith",
+            "token": "MUf55TwFXYgJ9xcc3f8dpG"
+        }
+
++ Response 401 (application/json)
+
+        {  
+            "errors": [
+                {
+                    "code": "unauthorized",
+                    "userMessage": "Username or password is invalid."
+                }
+            ]  
+        }

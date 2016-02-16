@@ -1,7 +1,20 @@
-<h1>Threads</h1>
-<ul class="threads">
-    <li ng-repeat="thread in threads">
-        {{thread.title}}
-        <span class="pull-right">{{thread.author.username}}</span>
+<form ng-submit="thread.id === undefined ? create() : edit()" class="form-inline" id="newThread">
+    <div class="form-group">
+        <input type="text" id="threadTitle" class="form-control" ng-model="thread.title" placeholder="Type in new thread title" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+<ul class="threads data-list list-unstyled">
+    <li ng-repeat="thread in threadsObject.threads">
+        <div>
+            <a class="body block pull-left clear-fix" href="#{{thread.urlPosts}}">
+                <span class="block pull-left text">{{thread.title}}</span>
+                <span class="block pull-left author">{{thread.author.username}}</span>
+            </a>
+            <span class="block pull-left actions text-right" ng-show="{{user && user.username === thread.author.username}}"><a href="#/threads/{{thread.id}}">Edit</a></span>
+            <div class="clear"></div>
+        </div>
     </li>
 </ul>
+<div ng-include="'views/templates/pagination.html'" ng-repeat="pagination in [threadsObject.pagination]">
+</div>
